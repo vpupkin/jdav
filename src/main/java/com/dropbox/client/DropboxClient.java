@@ -291,7 +291,8 @@ public class DropboxClient extends RESTUtility {
             // now we can add the real file multipart and we're good
             MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
             FileBody bin = new FileBody(file_obj);
-            entity.addPart("file", bin);
+            // TODO org.apache.james.mime4j.message.AbstractBody
+            //entity.addPart("file", bin);
             // this resets it to the new entity with the real file
             req.setEntity(entity);
 

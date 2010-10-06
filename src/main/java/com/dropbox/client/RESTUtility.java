@@ -53,11 +53,11 @@ public class RESTUtility {
         //registers schemes for both http and https 
         SchemeRegistry registry = new SchemeRegistry(); 
         registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80)); 
-        final SSLSocketFactory sslSocketFactory = SSLSocketFactory.getSocketFactory(); 
-        sslSocketFactory.setHostnameVerifier(SSLSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER); 
+        //final SSLSocketFactory sslSocketFactory = SSLSocketFactory.getSocketFactory(); 
+        //sslSocketFactory.setHostnameVerifier(SSLSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER); 
 
-        registry.register(new Scheme("https", sslSocketFactory, 443)); 
-        sManager = new ThreadSafeClientConnManager(sParams, registry); 
+        //registry.register(new Scheme("https", sslSocketFactory, 443)); 
+        //sManager = new ThreadSafeClientConnManager(sParams, registry); 
         
         
     }
