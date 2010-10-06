@@ -5,7 +5,7 @@
 	<groupId>com.dropbox.client</groupId>
 	<artifactId>dropbox-client</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.gae.0-SNAPSHOT</version>
 	<name>dropbox-client</name>
 	<url>http://getdropbox.com/developers/</url>
 	<licenses>
