@@ -16,9 +16,21 @@ public class Util {
 
         System.out.println("AUTHORIZING: " + url);
 
-        int proxyPort = 8080;
+        
 		String proxyHost = "proxy.Host";
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_2 , proxyHost, proxyPort);
+		String schemes[] = {"https", "http" };
+		WebClient webClient = null;
+		try{
+			for (String scheme : schemes) {
+				String proxHostTmp = System.getProperty(scheme + ".proxyHost"); 
+				int proxyPortTmp = Integer.parseInt( System.getProperty(scheme + ".proxyPort"));	
+				if (null!=proxHostTmp){
+					webClient = new WebClient(BrowserVersion.FIREFOX_2 , proxyHost, proxyPortTmp);
+				}
+			}
+		}catch(Exception e){}
+		if (webClient == null)
+			webClient = new WebClient();
         webClient.setJavaScriptEnabled(false);
          
         HtmlPage page = (HtmlPage)webClient.getPage(url);
