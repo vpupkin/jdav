@@ -4,7 +4,7 @@ import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 import java.io.*;
 
-class Util {
+public class Util {
 
     public static void authorizeForm(String url, String testing_user, String testing_password) throws IOException {
         BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
