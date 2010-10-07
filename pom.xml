@@ -59,47 +59,7 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>surefire-integration</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>false</skip>
-							<systemProperties>
-								<property>
-									<name>http.proxyHost</name>
-									<value>${http.proxyHost}</value>
-								</property>
-								<property>
-									<name>http.proxyPort</name>
-									<value>${http.proxyPort}</value>
-								</property>
-								<property>
-									<name>https.proxyHost</name>
-									<value>${https.proxyHost}</value>
-								</property>
-								<property>
-									<name>https.proxyPort</name>
-									<value>${https.proxyPort}</value>
-								</property>
-								<property>
-									<name>http.nonProxyHosts</name>
-									<value>${http.nonProxyHosts}</value>
-								</property>
-							</systemProperties>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
+		 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

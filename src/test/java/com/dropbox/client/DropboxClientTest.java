@@ -124,7 +124,7 @@ public class DropboxClientTest extends TestCase
 
     public void assertValidResponse(Map resp, boolean json) {
         assert resp != null : "Should always get a response.";
-        assert resp.get("ERROR") == null : "Should not get an error: " +  resp.get("ERROR") + ":" + resp.get("BODY");
+        assert resp.get("ERROR") == null : "Should not get an error: " +  resp.get("ERROR") + ":" + resp.get("BODY") +" $$$$ " +resp.values();
 
         if(json) {
             assert resp.get("RESULT") == null : "Should not get a raw result: " + resp.get("RESULT");

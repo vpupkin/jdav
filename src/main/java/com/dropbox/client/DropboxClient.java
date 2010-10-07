@@ -273,6 +273,7 @@ public class DropboxClient extends RESTUtility {
     @SuppressWarnings("unchecked")
     public HttpResponse putFile(String root, String to_path, File file_obj) throws DropboxException
     {
+    	assert file_obj.exists() : "Should exist.";
         String path = "/files/" + root + to_path;
         
         HttpClient client = getClient();

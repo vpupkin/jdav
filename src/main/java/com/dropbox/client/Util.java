@@ -24,8 +24,11 @@ public class Util {
 			for (String scheme : schemes) {
 				String proxHostTmp = System.getProperty(scheme + ".proxyHost"); 
 				int proxyPortTmp = Integer.parseInt( System.getProperty(scheme + ".proxyPort"));	
-				if (null!=proxHostTmp){
-					webClient = new WebClient(BrowserVersion.FIREFOX_2 , proxyHost, proxyPortTmp);
+				if (url.startsWith(scheme) && null!=proxHostTmp){
+					webClient = new WebClient(BrowserVersion.FIREFOX_3 , proxyHost, proxyPortTmp);
+					System.out.println("choosed PROXY for ["+scheme+"]" +
+							"  "+proxHostTmp+":"+proxyPortTmp);
+					break;
 				}
 			}
 		}catch(Exception e){}
