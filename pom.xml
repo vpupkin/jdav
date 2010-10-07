@@ -8,6 +8,12 @@
 	<version>1.2</version>
 	<name>dropbox-client</name>
 	<url>http://getdropbox.com/developers/</url>
+	<properties>
+		<https.proxyHost>proxy.host</https.proxyHost>
+		<https.proxyPort>8080</https.proxyPort>
+		<http.proxyHost>proxy.host</http.proxyHost>
+		<http.proxyPort>8080</http.proxyPort>
+	</properties>
 	<licenses>
 		<license>
 			<name>MIT</name>
@@ -53,6 +59,47 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>surefire-integration</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<systemProperties>
+								<property>
+									<name>http.proxyHost</name>
+									<value>${http.proxyHost}</value>
+								</property>
+								<property>
+									<name>http.proxyPort</name>
+									<value>${http.proxyPort}</value>
+								</property>
+								<property>
+									<name>https.proxyHost</name>
+									<value>${https.proxyHost}</value>
+								</property>
+								<property>
+									<name>https.proxyPort</name>
+									<value>${https.proxyPort}</value>
+								</property>
+								<property>
+									<name>http.nonProxyHosts</name>
+									<value>${http.nonProxyHosts}</value>
+								</property>
+							</systemProperties>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -137,14 +184,14 @@
 			<groupId>oauth.signpost</groupId>
 			<artifactId>signpost-core</artifactId>
 			<version>1.2</version>
-			<scope>compile</scope>
+			 
 		</dependency>
 
 		<dependency>
 			<groupId>oauth.signpost</groupId>
 			<artifactId>signpost-commonshttp4</artifactId>
 			<version>1.2</version>
-			<scope>compile</scope>
+			 
 		</dependency>
 
 	</dependencies>

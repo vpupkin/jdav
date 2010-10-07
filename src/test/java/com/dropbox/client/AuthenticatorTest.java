@@ -31,6 +31,7 @@ import junit.framework.TestSuite;
 import java.util.Map;
 import com.dropbox.client.Authenticator;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -66,7 +67,8 @@ public class AuthenticatorTest
 
     public void test_loadConfig() throws Exception
     {
-        Map config = Authenticator.loadConfig("config/testing.json");
+    	InputStream isTmp = AuthenticatorTest.class.getResourceAsStream("/config/testing.json");
+        Map config = Authenticator.loadConfig(isTmp);
         assert null != config.get("consumer_key");
         assert null != config.get("consumer_secret");
         assert null != config.get("request_token_url");
@@ -76,7 +78,8 @@ public class AuthenticatorTest
 
     public void test_Authenticator() throws Exception 
     {
-        Map config = Authenticator.loadConfig("config/testing.json");
+    	InputStream isTmp = AuthenticatorTest.class.getResourceAsStream("/config/testing.json");
+        Map config = Authenticator.loadConfig(isTmp);
         Authenticator auth = new Authenticator(config);
         assert auth.consumer_key == (String)config.get("consumer_key");
         assert auth.consumer_secret == (String)config.get("consumer_secret");
@@ -87,7 +90,8 @@ public class AuthenticatorTest
 
     public void test_retrieveRequestToken() throws Exception 
     {
-        Map config = Authenticator.loadConfig("config/testing.json");
+    	InputStream isTmp = AuthenticatorTest.class.getResourceAsStream("/config/testing.json");
+        Map config = Authenticator.loadConfig(isTmp);
         Authenticator auth = new Authenticator(config);
         String url = auth.retrieveRequestToken("somecallback");
         assert url != null : "Failed to get a authorization url.";
@@ -97,7 +101,8 @@ public class AuthenticatorTest
 
     public void test_retrieveAccessToken() throws Exception 
     {
-        Map config = Authenticator.loadConfig("config/testing.json");
+    	InputStream isTmp = AuthenticatorTest.class.getResourceAsStream("/config/testing.json");
+        Map config = Authenticator.loadConfig(isTmp);
         Authenticator auth = new Authenticator(config);
         String url = auth.retrieveRequestToken(null);
         String req_key = auth.getTokenKey();
@@ -115,7 +120,8 @@ public class AuthenticatorTest
 
     public void test_sign() throws Exception 
     {
-        Map config = Authenticator.loadConfig("config/testing.json");
+    	InputStream isTmp = AuthenticatorTest.class.getResourceAsStream("/config/testing.json");
+        Map config = Authenticator.loadConfig(isTmp);
         Authenticator auth = new Authenticator(config);
         String url = auth.retrieveRequestToken(null);
         Util.authorizeForm(url, (String)config.get("testing_user"), (String)config.get("testing_password"));

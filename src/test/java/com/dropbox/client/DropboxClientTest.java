@@ -24,19 +24,15 @@
 */
 
 package com.dropbox.client;
-
-import org.json.simple.parser.*;
-import org.json.simple.JSONValue;
+ 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import com.dropbox.client.DropboxClient;
-import com.dropbox.client.Authenticator;
-import java.io.IOException;
+import com.dropbox.client.Authenticator; 
 import java.io.File;
-import java.net.*;
-import java.util.Map;
-import java.util.HashMap;
+import java.io.InputStream; 
+import java.util.Map; 
 import org.apache.http.StatusLine;
 import org.apache.http.HttpResponse;
 
@@ -45,21 +41,24 @@ import org.apache.http.HttpResponse;
  */
 public class DropboxClientTest extends TestCase
 {
-    public static Map config = null;
-    public static Authenticator auth = null;
+    public Map config = null;
+    public Authenticator auth = null;
     DropboxClient client = null;
 
-    static {
+    {
         try {
-            config = Authenticator.loadConfig("config/testing.json");
+            InputStream configIsTmp = Authenticator.class.getResourceAsStream("/config/testing.json");
+            assert configIsTmp != null : "Failed to get a configurration. ["+Authenticator.class.getResource("/config/testing.json").getFile()+"]";
+            config = Authenticator.loadConfig(configIsTmp);        	
+             
             auth = new Authenticator(config);
             String url = auth.retrieveRequestToken(null);
-	    System.out.println("Url is: " + url);
+            System.out.println("Url is: " + url);
             Util.authorizeForm(url, (String)config.get("testing_user"), (String)config.get("testing_password"));
             auth.retrieveAccessToken("");
         } catch (Exception e) {
             e.printStackTrace();
-            assert false : "Total failure initializing the authenticator.";
+            assert false : "Total   failure   initializing   the   authenticator.";
 
         }
     }
@@ -68,7 +67,7 @@ public class DropboxClientTest extends TestCase
     public void setUp() throws Exception 
     {
         assert auth != null : "Auth didn't get configured.";
-        this.client = new DropboxClient(this.config, DropboxClientTest.auth);
+        this.client = new DropboxClient(this.config, auth);
         this.client.fileDelete("sandbox", "/tests", null);
     }
 
@@ -105,8 +104,10 @@ public class DropboxClientTest extends TestCase
 
     public void test_buildFullURL() throws Exception
     {
-        String url = client.buildFullURL("http", (String)config.get("server"), ((Long)config.get("port")).intValue(), "/0/account/info");
-        assert url.equals("http://" + (String)config.get("server") + "/0/account/info");
+        String serverNameTmp = (String)config.get("server");
+		int portTmp = ((Long)config.get("port")).intValue();
+		String url = client.buildFullURL("http", serverNameTmp, portTmp, "/0/account/info");
+        assert url.equals("http://" + serverNameTmp + "/0/account/info");
     }
 
     public void test_buildURL() throws Exception

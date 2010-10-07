@@ -70,12 +70,15 @@ public class RESTUtility {
         return secureProtocol;
     }
     
-    
+//    static HttpClient httpclient = null;
     static public HttpClient getClient() { 
+    	HttpClient httpclient = null;
 //        DefaultHttpClient ret = new DefaultHttpClient(sManager, sParams); 
 //        DefaultHttpClient ret = new DefaultHttpClient();
-    	HttpClient ret = TrustedAuthenticator.makeHTTPClient();
-        return ret; 
+    	if (httpclient == null){
+    		httpclient = TrustedAuthenticator.makeHTTPClient();
+    	}
+        return httpclient; 
     }
 
 

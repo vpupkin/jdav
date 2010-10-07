@@ -78,6 +78,7 @@ public class Authenticator {
      *
      * It doesn't check that you have the proper configuration elements, but as long as the tests pass 
      * on your config file then it should work.
+     * @deprecated
      */
     @SuppressWarnings("unchecked")
     public static Map loadConfig(String path) throws FileNotFoundException, IOException, ParseException {

@@ -7,6 +7,7 @@ import com.dropbox.client.DropboxClient;
 import com.dropbox.client.TrustedAuthenticator;
 import java.io.IOException;
 import java.io.File;
+import java.io.InputStream;
 import java.net.*;
 import java.util.Map;
 import org.apache.http.StatusLine;
@@ -17,14 +18,18 @@ import org.apache.http.HttpResponse;
  */
 public class TrustedDropboxClientTest extends TestCase
 {
-    public static Map config = null;
-    public static Authenticator auth = null;
+    public Map config = null;
+    public Authenticator auth = null;
 
     DropboxClient client = null;
 
-    static {
+    {
         try {
-            config = TrustedAuthenticator.loadConfig("config/trusted_testing.json");
+            InputStream configIsTmp = TrustedAuthenticator.class.getResourceAsStream("/config/trusted_testing.json");
+            assert configIsTmp != null : "Failed to get a configurration. ["+Authenticator.class.getResource("/config/trusted_testing.json").getFile()+"]";
+            
+            config = TrustedAuthenticator.loadConfig(configIsTmp);
+            //System.out.println(config);
             TrustedAuthenticator trusted_auth = new TrustedAuthenticator(config);
             String username = (String)config.get("testing_user");
             assert username != null : "You failed to set the testing_user for trusted access.";
@@ -42,7 +47,7 @@ public class TrustedDropboxClientTest extends TestCase
     public void setUp() throws Exception 
     {
         assert auth != null : "Auth didn't get configured.";
-        this.client = new DropboxClient(TrustedDropboxClientTest.config, TrustedDropboxClientTest.auth);
+        this.client = new DropboxClient(config, auth);
         this.client.fileDelete("dropbox", "/trusted_tests", null);
     }
 
